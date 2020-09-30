@@ -1,0 +1,156 @@
+@import "global";
+
+@mixin style_btn {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 0.8rem;
+  color: #fff;
+  background-color: rgb(97, 100, 245);
+  border: none;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+@mixin item-todo($color) {
+  margin: 5px;
+  padding: 0.6rem 1rem;
+  border-radius: 3px;
+  font-size: 1.5rem;
+  background-color: #{$color};
+}
+
+.container {
+  min-height: 100vh;
+  background-color: rgb(29, 133, 98);
+  text-align: center;
+  color: #fff;
+
+  .add-todo {
+    margin: 3rem 5px;
+
+    .form-group {
+      position: relative;
+      width: 98%;
+      margin: auto;
+
+      input {
+        display: block;
+        width: 100%;
+        padding: 0.6rem 1rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 2px;
+        outline: none;
+      }
+
+      .btn {
+        @include style_btn;
+
+        .fas {
+          font-size: 2rem;
+        }
+
+        &:hover {
+          background-color: rgb(32, 145, 197);
+        }
+      }
+    }
+  }
+
+  .wrap-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    // grid-gap: 1.5rem;
+
+    .card-list {
+      margin: 1rem;
+      background-color: #e5eff5;
+      padding: 1rem;
+      border-radius: 5px;
+      color: #000;
+
+      .todo-item {
+        position: relative;
+        @include item-todo(#fff);
+        text-align: left;
+
+        .btn {
+          @include style_btn;
+          opacity: 0;
+        }
+
+        &:hover .btn {
+          opacity: 1;
+        }
+      }
+
+      .empty-item {
+        @include item-todo(#ccdce6);
+
+        .btn {
+          opacity: 0;
+        }
+      }
+    }
+
+    .todos-doing .todo-item .btn {
+      background-color: rgb(15, 197, 9);
+    }
+
+    .todos-done .todo-item .btn {
+      background-color: rgb(209, 28, 28);
+    }
+  }
+}
+
+// responsive
+@media all and (min-width: 370px) {
+  .container {
+    .add-todo {
+      .form-group {
+        width: 35rem;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 800px) {
+  .container .wrap-content {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .container .wrap-content .todos {
+    grid-column: 1 / span 2;
+  }
+
+  .container .wrap-content .todos-doing {
+    grid-column: 3 / span 2;
+  }
+
+  .container .wrap-content .todos-done {
+    grid-column: 2 / 4;
+  }
+}
+
+@media all and (min-width: 1120px) {
+  .container .wrap-content {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .container .wrap-content .todos {
+    grid-column: 1;
+  }
+
+  .container .wrap-content .todos-doing {
+    grid-column: 2;
+  }
+
+  .container .wrap-content .todos-done {
+    grid-column: 3;
+  }
+}
